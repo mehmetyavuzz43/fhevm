@@ -1,0 +1,35 @@
+# Example values file for running FHEVM components in a local development environment.
+# Copy this file to values.local.yaml and adjust the settings to match your cluster.
+
+image:
+  pullPolicy: IfNotPresent
+
+network:
+  name: "localnet"
+  chainId: 1337
+
+resources:
+  requests:
+    cpu: "250m"
+    memory: "512Mi"
+  limits:
+    cpu: "1"
+    memory: "1Gi"
+
+persistence:
+  enabled: false
+
+service:
+  type: ClusterIP
+  port: 8545
+
+env:
+  # Endpoint of the execution client used by the FHEVM components.
+  EXECUTION_CLIENT_RPC_URL: "http://execution-client:8545"
+  # Toggle verbose logging for local troubleshooting.
+  RUST_LOG: "info"
+
+notes:
+  # This file is not used by default. Include it explicitly, for example:
+  #   helm upgrade --install fhevm charts/ -f charts/values.local-dev.yaml
+  usage: "local development only"
